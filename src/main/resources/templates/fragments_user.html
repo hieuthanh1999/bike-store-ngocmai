@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymleaf.org">
+<head th:fragment="headuser">
+   <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="bụi, unica,sneakers, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[[${pageTitleUser}]] - Xe đạp Ngọc Mai</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/user/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/style.css" type="text/css">
+
+</head>
+<body>
+	<div th:fragment="preloaduser">
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v10.0&appId=141355777905018&autoLogAppEvents=1" nonce="Vb4VLelk"></script>
+		<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <ul class="offcanvas__widget">
+             <li><span class="icon_search search-switch"></span></li>
+                            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"><span class="icon_heart_alt"></span>
+                                    <div class="tip">0</div>
+                                </a></li>
+                                
+                                <li sec:authorize="isAuthenticated()"><a th:href="@{/home/wishlist}"><span class="icon_heart_alt"></span>
+                                    <thblock ><div  class="tip">[[${session.nwishlist}]]</div></thblock>
+                                </a></li>
+                            <li><a th:href="@{/home/cart}"><span class="icon_bag_alt"></span>
+                            		<th:block th:if="${cart==null}"><div class="tip" th:text="0"></div></th:block>
+                                    <th:block th:if="${cart!=null}"><div class="tip" th:text="${session.amountmenu}"></div></th:block>
+                                </a></li>
+        </ul>
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="/user/img/logo.png" alt=""></a>
+        </div> 
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__auth">
+            <div  sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}">Đăng nhập</a>
+                            <a th:href="@{/home/register}">Đăng ký</a>
+                        </div>
+                         <div  sec:authorize="isAuthenticated()">
+                            <a th:href="@{/home/acount/1}" >Tài khoản</a>
+                           	<label for="logout">  <a >Đăng xuất </a></label>
+                        </div>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+	</div>
+	<header th:fragment="headeruser" class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a th:href="@{'/'}"><img src="/user/img/logo.png" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul >
+                            <li class="active"><a th:text="Home" th:href="@{'/'}"></a></li>
+                            <li sec:authorize="isAuthenticated()"><a >Tài khoản</a>
+                                <ul class="dropdown">
+                                   
+                                    <li><a th:href="@{/home/acount/changepassword}">Đổi mật khẩu</a></li>
+                                    <li><a th:href="@{/home/acount/edit}">Sửa thông tin</a></li>
+                                  
+                                </ul>
+                            </li>
+                            <li><a th:href="@{/home/contact}">Liên hệ</a></li>
+                            <li th:each="c : ${listc}"><a th:text="${c.name}" th:href="@{'/home/product/'+${c.id}}"></a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <div class="header__right__auth" sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}">Đăng nhập</a>
+                            <a th:href="@{/home/register}">Đăng ký</a>
+                        </div>
+                         <div class="header__right__auth" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/home/acount/1}" >Tài khoản</a>
+                           	<label for="logout">  <a >Đăng xuất </a></label>
+                        </div>
+                        	
+                        <ul class="header__right__widget">
+                            <li><span class="icon_search search-switch"></span></li>
+                            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"><span class="icon_heart_alt"></span>
+                                    <div class="tip">0</div>
+                                </a></li>
+                                
+                                <li sec:authorize="isAuthenticated()"><a th:href="@{/home/wishlist}"><span class="icon_heart_alt"></span>
+                                    <thblock ><div  class="tip">[[${session.nwishlist}]]</div></thblock>
+                                </a></li>
+                            <li><a th:href="@{/home/cart}"><span class="icon_bag_alt"></span>
+                            		<th:block th:if="${cart==null}"><div class="tip" th:text="0"></div></th:block>
+                                    <th:block th:if="${cart!=null}"><div class="tip" th:text="${session.amountmenu}"></div></th:block>
+                                </a></li>
+                        </ul>
+                        <form th:action="@{/logout}" method="post" style="width:10px ">
+								<button type="submit" id="logout" style="display: none;position: absolute;" ><span class="arrow_carrot-2left_alt2" ></span></button>
+								</form>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    	<!-- Messenger Plugin chat Code -->
+    <div th:fragment="fbroot" id="fb-root"></div>
+      <script th:fragment="fbscript">
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v10.0'
+          });
+        };
+
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+
+      <!-- Your Plugin chat code -->
+      <div th:fragment="divchatbot" class="fb-customerchat"
+        attribution="page_inbox"
+        page_id="104295891774740">
+      </div>
+    <div th:fragment="instagram" class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+                <div th:each="b2:${listb2}" class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" th:data-setbg="${b2.img}">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a th:href="@{${b2.url}}" th:text="${b2.title}">Ngọc Mai</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer th:fragment="footeruser" class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a th:href="@{/}"><img src="/user/img/logo.png" alt=""></a>
+                        </div>
+                        <p>Mỗi bước chân là một dấu ấn.</p>
+                        <div class="footer__payment">
+                            <a href="#"><img src="/user/img/payment/payment-1.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-2.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-3.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-4.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-5.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Thông tin</h6>
+                        <ul>
+                            <li><a th:href="@{'/home/contact'}">Về chúng tôi</a></li>
+                            <li><a th:href="@{'/home/shoppingguide'}">Hướng dẫn mua hàng</a></li>
+                            <li><a href="#">Câu hỏi nhanh</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Tài khoản</h6>
+                        <ul>
+                            <li><a th:href="@{/home/acount/1}">Tài khoản của tôi</a></li>
+                            <li><a th:href="@{/home/orderhistory/}">Tra cứu đơn hàng</a></li>
+                            <li><a th:href="@{/home/checkout}">Checkout</a></li>
+                            <li><a th:href="@{/home/wishlist}">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>Hòm thư góp ý</h6>
+                        <form th:action="@{/sendnewemail}" method="post">
+                            <input type="text" name="email" placeholder="Email">
+                            <button type="submit" class="site-btn">Đăng ký</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <div class="footer__copyright__text">
+                        <p>Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                            template is made by Ngọc Mai<i class="fa fa-heart" aria-hidden="true"></i>
+                        </p>
+                    </div>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

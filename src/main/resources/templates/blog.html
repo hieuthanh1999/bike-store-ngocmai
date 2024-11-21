@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments_user::headuser">
+</head>
+<body>
+<div th:replace="fragments_user::preloaduser"></div>
+<header th:replace="fragments_user::headeruser"></header>
+ <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                    <a th:href="@{/}"><i class="fa fa-home"></i> Home</a>
+                        <span>Blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Contact Section Begin -->
+    <section class="contact spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="contact__content">
+                        <div class="contact__address">
+                            <h5 >Thông tin liên hệ</h5>
+                            <ul>
+                                <li>
+                                    <h6><i class="fa fa-map-marker"></i> Địa chỉ</h6>
+                                    <p>Xuân Thủy, Cầu Giấy, Hà Nội</p>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-phone"></i>Điện thoại</h6>
+                                    <p><span>0982367316</span></p>
+                                </li>
+                                <li>
+                                    <h6><i class="fa fa-headphones"></i> Hỗ trợ</h6>
+                                    <p>thainh289uet@gmail.com</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="contact__form">
+                            <h5>GỬI LIÊN HỆ</h5>
+                            <form th:action="@{/home/contact}" th:object="${contact}" method="post">
+                                <input type="text" th:field="*{name}" placeholder="Name" required minlength="10">
+                                <input type="text" th:field="*{email}" placeholder="Email" required email>
+                                <input type="text" th:field="*{phone}" placeholder="Phone" required minlength="10">
+                                <input type="text" th:field="*{address}" placeholder="Address" required minlength="20">
+                                <button type="submit" class="site-btn">Gửi ý kiến </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="contact__map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d930.9658446603535!2d105.78195952838767!3d21.038151883663094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5d0313a3bfdc4f37!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4csIMSQ4bqhaSBo4buNYyBRdeG7kWMgZ2lhIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1667883270583!5m2!1svi!2s"
+                                width="600" height="450" style="border:0;" allowfullscreen=""
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+    <div th:replace="fragments_user::fbroot"></div>
+	<script th:replace="fragments_user::fbscript"></script>
+    <div th:replace="fragments_user::instagram"></div>
+    <footer th:replace="fragments_user::footeruser"></footer>
+     <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="/user/js/jquery-3.3.1.min.js"></script>
+    <script src="/user/js/bootstrap.min.js"></script>
+    <script src="/user/js/jquery.magnific-popup.min.js"></script>
+    <script src="/user/js/jquery-ui.min.js"></script>
+    <script src="/user/js/mixitup.min.js"></script>
+    <script src="/user/js/jquery.countdown.min.js"></script>
+    <script src="/user/js/jquery.slicknav.js"></script>
+    <script src="/user/js/owl.carousel.min.js"></script>
+    <script src="/user/js/jquery.nicescroll.min.js"></script>
+    <script src="/user/js/main.js"></script>
+    <script src="/NiceAdmin/js/jquery.validate.min.js"></script>
+</body>
+</html>

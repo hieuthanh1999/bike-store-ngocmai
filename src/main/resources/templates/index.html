@@ -1,0 +1,316 @@
+  <!DOCTYPE html>
+<html lang="zxx" xmls="http://www.thymleaf.org">
+
+<head th:replace="fragments_user::headuser"/>
+ 
+<body>
+	<div th:replace="fragments_user :: preloaduser"></div>
+    
+
+    <!-- Header Section Begin -->
+    <header th:replace="fragments_user::headeruser"></header>
+    <!-- Header Section End -->
+
+    <!-- Categories Section Begin -->
+    <section class="categories">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 p-0">
+                    <div class="categories__item categories__large__item set-bg"
+                        th:data-setbg="${banner1.img}"
+                        >
+                        <div class="categories__text">
+                            <h1 th:text="${banner1.title}">Converse</h1>
+                            <p th:text="${banner1.detail}">Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn mạnh. Tất cả các thành tựu đáng tự hào của Converse đều không thể tách rời bởi 4 dòng sản phẩm kinh điển.</p>
+                            <a th:href="@{/home/product/1}">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div th:each="b1 : ${listb1}" class="col-lg-6 col-md-6 col-sm-6 p-0">
+                            <div class="categories__item set-bg" th:data-setbg="${b1.img}"
+                                style="background-image: url(&quot;./user/img/banner/nike.jpg&quot;);">
+                                <div class="categories__text">
+                                    <h4 th:text="${b1.title}">Nike</h4>
+                                    <p th:text="${b1.detail}">58 items</p>
+                                    <a th:href="@{/home/product/3}">Shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="section-title">
+                        <h4>Sản phẩm mới</h4>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+
+                </div>
+            </div>
+            <div class="row property__gallery" id="MixItUpCEC7D7">
+                <div th:each="p : ${lnew}" class="col-lg-3 col-md-4 col-sm-6 mix women">
+                	<th:block th:if="${p.sale>0}">
+                		<div class="product__item sale">
+                        <div class="product__item__pic set-bg" th:data-setbg="${p.img}"
+                            style="background-image: url(&quot;&quot;);">
+                            <div class="label sale">Sale</div>
+                            <ul class="product__hover">
+                                <li><a th:href="@{${p.img}}" class="image-popup"><span
+                                            class="arrow_expand"></span></a></li>
+                                <li><a th:href="@{'/home/wishlist/add/'+${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                                
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a th:href="@{'/home/product/view/'+${p.id}}" th:text="${p.name}"></a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-start"></i>
+                            </div>
+                            
+                           
+                            <div class="product__price">[[${p.sale}]]<span>[[${p.price}]]</span></div>
+                            
+                           
+                        </div>
+                    </div>
+                	</th:block>
+                     <th:block th:if="${p.sale<=0}">
+                            <div class="product__item ">
+                        <div class="product__item__pic set-bg" th:data-setbg="${p.img}"
+                            style="background-image: url(&quot;&quot;);">
+                            <div class="label new">New</div>
+                            <ul class="product__hover">
+                                <li><a th:href="@{${p.img}}" class="image-popup"><span
+                                            class="arrow_expand"></span></a></li>
+                                <li><a th:href="@{'/home/wishlist/add/'+${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                                
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a th:href="@{'/home/product/view/'+${p.id}}" th:text="${p.name}"></a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                           
+                            <div class="product__price">[[${p.price}]]</div>
+                           
+                        </div>
+                    </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="section-title">
+                        <h4>Sản phẩm nổi bật</h4>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+
+                </div>
+            </div>
+            <div class="row property__gallery" id="MixItUpCEC7D7">
+                <div th:each="p : ${lview}" class="col-lg-3 col-md-4 col-sm-6 mix women">
+                    <th:block th:if="${p.sale>0}">
+                		<div class="product__item sale">
+                        <div class="product__item__pic set-bg" th:data-setbg="${p.img}"
+                            style="background-image: url(&quot;&quot;);">
+                            <div class="label sale">Sale</div>
+                            <ul class="product__hover">
+                                <li><a th:href="@{${p.img}}" class="image-popup"><span
+                                            class="arrow_expand"></span></a></li>
+                                <li><a th:href="@{'/home/wishlist/add/'+${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                                
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a th:href="@{'/home/product/view/'+${p.id}}" th:text="${p.name}"></a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            
+                           
+                            <div class="product__price">[[${p.sale}]]<span>[[${p.price}]]</span></div>
+                            
+                           
+                        </div>
+                    </div>
+                	</th:block>
+                     <th:block th:if="${p.sale<=0}">
+                            <div class="product__item ">
+                        <div class="product__item__pic set-bg" th:data-setbg="${p.img}"
+                            style="background-image: url(&quot;&quot;);">
+                            <div class="label new">Quan tâm</div>
+                            <ul class="product__hover">
+                                <li><a th:href="@{${p.img}}" class="image-popup"><span
+                                            class="arrow_expand"></span></a></li>
+                                <li><a th:href="@{'/home/wishlist/add/'+${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                                
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a th:href="@{'/home/product/view/'+${p.id}}" th:text="${p.name}"></a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            
+                           
+                            <div class="product__price">[[${p.price}]]</div>
+                            
+                           
+                        </div>
+                    </div>
+                    </th:block>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Banner Section Begin -->
+    <section class="banner set-bg" th:data-setbg="${banner2.img}"
+        style="background-image: url(&quot;/user/img/banner/banner-1.jpg&quot;);">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-8 m-auto">
+                    <div class="banner__slider owl-carousel owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage"
+                                style="transform: translate3d(-1957px, 0px, 0px); transition: all 1.2s ease 0s; width: 4568px;">
+                                <div style="display: none;width: 652.5px;" class="owl-item cloned" >
+                                    <div class="banner__item">
+                                        <div class="banner__text">
+                                            <span th:text="${banner2.detail}">Mỗi bước đi sẽ để lại một dấu ấn</span>
+                                            <h1>The Creator</h1>
+                                            <a href="#">Shop now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                        <div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"><span
+                                    aria-label="Previous">‹</span></button><button type="button" role="presentation"
+                                class="owl-next"><span aria-label="Next">›</span></button></div>
+                        <div class="owl-dots"><button role="button" class="owl-dot"><span></span></button><button
+                                role="button" class="owl-dot active"><span></span></button><button role="button"
+                                class="owl-dot"><span></span></button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Section End -->
+
+    <!-- Trend Section Begin -->
+
+    <!-- Trend Section End -->
+
+    <!-- Discount Section Begin -->
+
+    <!-- Discount Section End -->
+
+    <!-- Services Section Begin -->
+    <section class="services spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-car"></i>
+                        <h6>Miễn phí giao hàng</h6>
+                        <p>Cho các sản phầm trên 2 triệu vnđ</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-money"></i>
+                        <h6>Hoàn tiền</h6>
+                        <p>Nếu sản phẩm có vấn đề</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-support"></i>
+                        <h6>Hỗ trợ 24/7</h6>
+                        <p>Dịch vụ hỗ trợ nhiệt tình</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="services__item">
+                        <i class="fa fa-headphones"></i>
+                        <h6>Giao dịch bảo mật</h6>
+                        <p>100% giao dịch được bảo đảm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+	<div th:replace="fragments_user::fbroot"></div>
+	<script th:replace="fragments_user::fbscript"></script>
+	<div th:replace="fragments_user::divchatbot"></div>
+    <!-- Instagram Begin -->
+    <div th:replace="fragments_user :: instagram"></div>
+    <!-- Instagram End -->
+
+    <!-- Footer Section Begin -->
+    <footer th:replace="fragments_user :: footeruser">
+        
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+	
+    <!-- Js Plugins -->
+    <script src="/user/js/jquery-3.3.1.min.js"></script>
+    <script src="/user/js/bootstrap.min.js"></script>
+    <script src="/user/js/jquery.magnific-popup.min.js"></script>
+    <script src="/user/js/jquery-ui.min.js"></script>
+    <script src="/user/js/mixitup.min.js"></script>
+    <script src="/user/js/jquery.countdown.min.js"></script>
+    <script src="/user/js/jquery.slicknav.js"></script>
+    <script src="/user/js/owl.carousel.min.js"></script>
+    <script src="/user/js/jquery.nicescroll.min.js"></script>
+    <script src="/user/js/main.js"></script>
+</body>
+
+</html>

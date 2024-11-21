@@ -1,0 +1,108 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head"/>
+
+<body>
+	<!-- container section start -->
+	<section id="container" class="">
+		<header th:replace="fragments :: bar" ></header>
+		<aside th:replace="fragments :: menu"></aside>
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 class="page-header" style="font-family: arial; color: #007aff">
+							<i class="fa fa-gift"></i> Người dùng
+						</h3>
+						<ol class="breadcrumb" style="font-family: arial;">
+							<li><a th:href="@{/admin}">Trang chủ</a></li>
+							<li>Người dùng</li>
+						</ol>
+					</div>
+				</div>
+				<!-- page start-->
+				<div class="row">
+					<div class="col-lg-12">
+
+						<div class="btn-group" style="margin-bottom: 20px;width: 1156px;">
+                            <div class="col-lg-6">
+                                <a class="btn btn-primary" style="font-family: arial;" th:href="@{/admin/user/adduser}">Thêm mới</a>
+                            </div>
+                            <div class="col-lg-6">
+                                <form class="navbar-form" th:action="@{/admin/user/page}" style="margin-left: 200px;">
+                                    <input class="form-control" placeholder="Tìm kiếm" name="keyword" th:value="${keyword}" type="text" required/>
+                                    <input class="btn btn-success" style="font-family: arial;" type="submit" value="Tìm kiếm"/>
+                                </form>
+
+                            </div>
+                        </div> 
+						<section class="panel">
+						
+							<table  class="table table-striped table-advance table-hover"
+								style="font-family: arial;">
+								
+									<tr>
+										<th style="text-align: center;">ID</th>
+										<th style="text-align: center;">Tên đăng nhập</th>
+										<th style="text-align: center;">Tên đầy đủ</th>
+										<th style="text-align: center;">Địa chỉ</th>
+										<th style="text-align: center;">Email</th>
+										<th style="text-align: center;">Số điện thoại</th>
+										<th style="text-align: center;">Trạng thái</th>
+										<th style="text-align: center;">Đăng nhập cuối</th>
+									</tr>
+									<tbody id="productTable">
+									<tr  th:each="u : ${list}" style="text-align: center;">
+										<td th:text="${u.id}"></td>
+										<td th:text="${u.username}"></td>
+										<td th:text="${u.fullname}"></td>
+										<td th:text="${u.address}"></td>
+										<td th:text="${u.email}"></td>
+										<td th:text="${u.phone}"></td>
+										<td th:text="${u.enable}"></td>
+										<td th:text="${u.lastlogined}"></td>
+									
+										<td>
+											<div class="btn-group">
+												<th:block th:if="${u.username!=session.u.username}"><a class="btn btn-primary"
+													th:href="@{'/admin/user/enable/' +${u.id}}">Enable</a>
+													<a class="btn btn-primary"
+													th:href="@{'/admin/user/disable/' +${u.id}}">Disable</a>
+													<a
+													class="btn btn-danger"
+													onclick="if(!confirm('Bạn có chắc chắn muốn xóa'))"
+													th:href="@{'/admin/user/delete/' +${u.id}}">Xóa</a></th:block>
+													<th:block th:if="${u.username==session.u.username}"><a class="btn btn-primary"
+													th:href="@{'/home/acount/changepassword/'}">Đổi mật khẩu</a>
+													<a class="btn btn-primary"
+													th:href="@{'/home/acount/edit'}">Sửa tài khoản</a>
+													</th:block>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</section>
+						<div class = "col-lg-6">
+                            <h4 style="font-family: arial;">Tổng người dùng: [[${totalItems}]] - Trang [[${currentPage}]]/[[${totalPages}]]</h4>
+                        </div>
+                        <div class = "col-lg-6">
+                            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            <a  th:href="@{'/admin/user/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>
+                        </span>
+                        </div>
+					</div>
+				</div>
+				<!-- page end-->
+			</section>
+		</section>
+		<!--main content end-->
+		
+	</section>
+
+	
+</body>
+
+</html>

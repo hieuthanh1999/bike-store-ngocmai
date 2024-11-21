@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments_user::headuser">
+</head>
+<body>
+<div th:replace="fragments_user :: preloaduser"></div>
+<!-- Header Section Begin -->
+    <header th:replace="fragments_user::headeruser"></header>
+    <!-- Header Section End -->
+    <div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb__links">
+						<a th:href="@{/}"><i class="fa fa-home"></i> Home</a>
+						<a th:href="@{'/home/product/'+${p.c.id}}" th:text="${p.c.name}"> </a>
+						<span th.text="${p.name}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product__details__pic">
+						<div class="product__details__pic__left product__thumb nice-scroll" tabindex="1" style="overflow-y: hidden; outline: none;">
+							<a class="pt active" href="#product-1">
+							<img th:src="@{${p.img}}" alt="">
+							</a>
+							<a class="pt" href="#product-2">
+							<img th:src="@{${p.img2}}" alt="">
+							</a>
+							<a class="pt" href="#product-3">
+							<img th:src="@{${p.img3}}" alt="">
+							</a>
+							<a class="pt" href="#product-4">
+							<img th:src="@{${p.img4}}" alt="">
+							</a>
+						</div>
+						<div class="product__details__slider__content">
+							<div class="product__details__pic__slider owl-carousel owl-loaded">
+								<div class="owl-stage-outer">
+									<div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2073px;">
+										<div class="owl-item active" style="width: 518.188px;"><img data-hash="product-1" class="product__big__img" th:src="@{${p.img}}" alt=""></div>
+										<div class="owl-item" style="width: 518.188px;"><img data-hash="product-2" class="product__big__img" th:src="@{${p.img2}}" alt=""></div>
+										<div class="owl-item" style="width: 518.188px;"><img data-hash="product-3" class="product__big__img" th:src="@{${p.img3}}" alt=""></div>
+										<div class="owl-item" style="width: 518.188px;"><img data-hash="product-4" class="product__big__img" th:src="@{${p.img4}}" alt=""></div>
+									</div>
+								</div>
+								<div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="arrow_carrot-right"></i></button></div><div class="owl-dots disabled"></div>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="product__details__text">
+                        <h3 th:text="${p.name}"><span th:text="'Hãng :'+${p.c.name}"></span></h3>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span>( 289 reviews )</span>
+                        </div>
+                        <form th:action="@{/cart}" method="post">
+                        <th:block th:if="${p.sale>0}"><div class="product__details__price">[[${p.sale}]]<span>[[${p.price}]]</span></div></th:block>
+                        <th:block th:if="${p.sale==0}"><div class="product__details__price">[[${p.price}]]</div></th:block>
+                        <div class="product__details__widget">
+                            <ul>
+                                <li>
+                                    <span>Vui lòng chọn color:</span>
+                                    <div class="size__btn">
+                                        <label style="font-weight: bold;"  th:each="color:${s}" th:text="${color.color}" th:for="${color.color}" >
+                                            
+                                        </label>
+                                      <input th:each="color:${s}" type="radio" name="color" th:id="${color.color}" th:value="${color.color}" style="display: none" required>
+                                    </div>
+                                    </br>
+                                </li>
+                            </ul>
+                        </div>
+                          </br>
+                        <p th:text="${p.detail}"></p>
+                        
+                        <div class="product__details__button">
+                            <div class="quantity">
+                                <span>Số lượng:</span>
+                               <div class="pro-qty">
+                               		
+									<input type="nummber" value="1" name="soluong">
+									
+								</div>
+                            </div>
+                            <input type="hidden" th:value="${p.id}" name="id">
+                            <th:block th:if="${p.status=='Còn hàng'}"><button type=submit class="cart-btn"><span class="icon_bag_alt"></span> Đặt hàng</button></th:block>
+                            <th:block th:if="${p.status=='Hết hàng'}"><button type=submit class="cart-btn" disabled="disabled"><span class="icon_bag_alt"></span> Hết hàng</button></th:block>
+                            <ul>
+                                <li><a th:href="@{'/home/wishlist/add/'+${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                               
+                            </ul>
+                        </div>
+                      
+                        </form>
+                        <div class="product__details__widget">
+                            <ul>
+                                <li>
+                                    <span>Tình trạng:</span>
+                                   	<span th:text="${p.status}"></span>
+                                </li>
+                              <br>
+                                <li>
+                                    <span>Màu sắc:</span>
+                                  	 <span th:text="${p.color}"></span>
+                                </li>
+                              <br>
+                                <li>
+                                    <span>Ưu đãi:</span>
+                                    <span style="font-weight: bold">Free shipping</span>
+                                </li>
+                              <br>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Mô tả</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Đánh giá</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <h6>Chất lượng chuẩn real với sự bền bỉ chỉ có ở Ngọc Mai</h6>
+                             	<h6>Đi đúng color</h6>
+                                <h6>Vận chuyển toàn quốc [ Kiểm Tra Hàng Trước Khi Thanh Toán ]</h6>
+
+                                <h6>Đổi trả 7 ngày không kể lý do</h6> 
+                                <h6>Liên hệ : 035.277.8794</h6>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <h6>Đặc biệt</h6>
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                              <div class="fb-comments" data-href="https://doanbuihieu.herokuapp.com/" data-width="1000" data-numposts="5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="related__title">
+                        <h5>Có thể bạn quan tâm</h5>
+                    </div>
+                </div>
+                <div th:each="pprice:${pp}" class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" th:data-setbg="${pprice.img}"
+                            style="background-image: url(&quot;img/product/related/con5.jpg&quot;);">
+                            <div class="label new">Tương tự</div>
+                            <ul class="product__hover">
+                                <li><a th:href="${pprice.img}" class="image-popup"><span
+                                            class="arrow_expand"></span></a></li>
+                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a th:href="@{'/home/product/view/'+${pprice.id}}" th:text="${pprice.name}"></a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price" th:text="${pprice.price}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+	<!-- Instagram Begin -->
+    <div th:replace="fragments_user::fbroot"></div>
+    <script th:replace="fragments_user::fbscript"></script>
+    <div th:replace="fragments_user::instagram"></div>
+    <footer th:replace="fragments_user::footeruser"></footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="/user/js/jquery-3.3.1.min.js"></script>
+    <script src="/user/js/bootstrap.min.js"></script>
+    <script src="/user/js/jquery.magnific-popup.min.js"></script>
+    <script src="/user/js/jquery-ui.min.js"></script>
+    <script src="/user/js/mixitup.min.js"></script>
+    <script src="/user/js/jquery.countdown.min.js"></script>
+    <script src="/user/js/jquery.slicknav.js"></script>
+    <script src="/user/js/owl.carousel.min.js"></script>
+    <script src="/user/js/jquery.nicescroll.min.js"></script>
+    <script src="/user/js/main.js"></script>
+    <script src="/NiceAdmin/js/form-validation-script.js"></script>
+    
+</body>
+</html>
