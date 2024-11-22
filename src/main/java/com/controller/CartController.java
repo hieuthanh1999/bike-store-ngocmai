@@ -88,10 +88,10 @@ public class CartController {
     //Thêm sản phẩm vào giỏ hàng
     @RequestMapping("/cart")
     public String add(HttpSession session,@RequestParam("id")int id,
-    		@RequestParam(value="soluong",required = false, defaultValue = "1")int soluong,@Param(value="size") String size) {
+    		@RequestParam(value="soluong",required = false, defaultValue = "1")int soluong,@Param(value="color") String color) {
         Product sp = spsv.get(id);
         Cart cart = csv.getCart(session);
-        cart.addItem(sp,soluong,size);
+        cart.addItem(sp,soluong,color);
         return "redirect:/home/cart";
     }
     //Xóa sản phẩm khỏi giỏ hàng

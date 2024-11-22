@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -143,25 +144,25 @@ public class ProductController {
 		try {
 			// cai nay la anh 1
 			String fileName = StringUtils.cleanPath(image.getOriginalFilename());
-			String uploadDir = "static/images";
+			String uploadDir = "static/images/";
 			product.setImg("/images/"+fileName);
 			FileUploadUtil.saveFile(uploadDir, fileName, image);
 
 			fileName = StringUtils.cleanPath(image2.getOriginalFilename());
-			if (fileName != null) {
-				product.setImg2(uploadDir+fileName);
+			if (!fileName.isEmpty()) {
+				product.setImg2("/images/"+fileName);
 				FileUploadUtil.saveFile(uploadDir, fileName, image2);
 			}
 
 			fileName = StringUtils.cleanPath(image3.getOriginalFilename());
-			if (fileName != null) {
-				product.setImg3(uploadDir+fileName);
+			if (!fileName.isEmpty()) {
+				product.setImg3("/images/"+fileName);
 				FileUploadUtil.saveFile(uploadDir, fileName, image3);
 			}
 
 			fileName = StringUtils.cleanPath(image4.getOriginalFilename());
-			if (fileName != null) {
-				product.setImg4(uploadDir+fileName);
+			if (!fileName.isEmpty()){
+				product.setImg4("/images/"+fileName);
 				FileUploadUtil.saveFile(uploadDir, fileName, image4);
 			}
 

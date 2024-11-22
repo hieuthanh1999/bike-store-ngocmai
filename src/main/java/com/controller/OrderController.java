@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.net.URI;
 import java.time.LocalDate;
 
 import java.util.List;
@@ -25,6 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +37,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cart.Cart;
@@ -156,14 +160,13 @@ public class OrderController {
 		return "redirect:/home/orderhistory/?keyid="+oid;
 	}
 	//Lưu đơn hàng
-	@RequestMapping(value="/home/saveorder", method = RequestMethod.POST)
+	@PostMapping(value="/home/saveorder")
 	public String addorder(Model model, HttpSession session, @ModelAttribute("order") Order order
-			, HttpServletResponse response, HttpServletRequest request) throws MessagingException {
+			, HttpServletResponse response, HttpServletRequest request, HttpEntity<String> request2) throws MessagingException {
 		if((Cart) session.getAttribute("gioHang") ==null) {
 			return "redirect:/error/06";
 		}
 		 Cart cart = (Cart) session.getAttribute("gioHang");
-		
 		List<CartItem> cis = cart.getItems();
 		boolean isInvalid = true;
 		for(CartItem ci:cis) {
@@ -218,18 +221,17 @@ public class OrderController {
 						"paypal",
 						"sale",
 						"Thanh toán cho order:",
-						Utils.getBaseURL(request) +"/pay-cancel",
-						Utils.getBaseURL(request) + "/pay-success/" + id);
+						Utils.getBaseURL(request2) +"/pay-cancel",
+						Utils.getBaseURL(request2) + "/pay-success/" + id);
 				for(Links links : payment.getLinks()){
 					if(links.getRel().equals("approval_url")){
-						response.sendRedirect(links.getHref());
-						return "/";
+						HttpHeaders headers = new HttpHeaders();
+						headers.setLocation(URI.create(links.getHref()));
+						return "redirect:" + new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
 					}
 				}
 			} catch (PayPalRESTException e) {
 				System.out.println("Pay fail");
-			} catch (IOException e) {
-				throw new RuntimeException(e);
 			}
 		}
 		csv.removeCart(session);

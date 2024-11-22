@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PaypalService {
-    private final APIContext apiContext = new APIContext();
+    private final APIContext apiContext;
 
     public Payment createPayment(
             Double total,
