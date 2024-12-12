@@ -17,10 +17,7 @@ public class Utils {
 
         StringBuffer url = new StringBuffer();
         url.append(scheme).append("://").append(serverName);
-        if ((serverPort != 80) && (serverPort != 443)) {
-            url.append(":").append(serverPort);
-        }
-        url.append(contextPath);
+        if (contextPath != null) url.append(contextPath);
         if (url.toString().endsWith("/")) {
             url.append("/");
         }
