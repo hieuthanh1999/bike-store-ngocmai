@@ -227,7 +227,7 @@ public class OrderController {
 					if(links.getRel().equals("approval_url")){
 						HttpHeaders headers = new HttpHeaders();
 						headers.setLocation(URI.create(links.getHref()));
-						return "redirect:" + new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+						return "redirect:" + links.getHref();
 					}
 				}
 			} catch (PayPalRESTException e) {
